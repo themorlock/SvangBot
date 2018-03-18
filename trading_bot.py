@@ -43,7 +43,7 @@ class Bot:
 
 	def _ichimoku_calculate_purchase_size(self, hits):
 		n = self._n_multiplier
-		return self._leverage * ((n**hits) / (1 + n + n**2 + n**3 + n**4))
+		return self._leverage * ((n**hits) / (1 + n + n**2 + n**3 + n**4 + n**5))
 
 
 	async def start(self):
@@ -77,18 +77,28 @@ class Bot:
 
 			if len(previous_ichimoku_cloud) >= 2:
 				ichimoku_cloud_signals = ichimoku_cloud.signal(previous_ichimoku_cloud)
-				
+
 				current_bulls = 0
 				current_bears = 0
 				for ichimoku_cloud_signal in ichimoku_cloud_signals:
-					trend = ichimoku_cloud_signal[1]
-					if trend == "bullish":
+					signal = ichimoku_cloud_signal[1]
+					if signal == "bullish":
 						current_bulls += 1
 						bulls += 1
-					elif trend == "bearish":
+					elif signal == "bearish":
 						current_bears += 1
 						bears += 1
-			
+
+				signal_names = ""
+				for i in range(0, len(ichimoku_cloud_signals) - 1):
+					signal_names += ichimoku_cloud_signals[i][0] + ", "
+				signal_names += ichimoku_cloud_signals[len(ichimoku_cloud_signals) - 1][0]
+
+				if signal_names != "":
+					self._logger.info("The following trends were indentified: {}.".format(signal_names))
+				else:
+					self._logger.info("No trends were identified.")
+
 				current_order_size = int(usd_free_balance * self._ichimoku_calculate_purchase_size(current_bulls + current_bears))
 				if current_bulls > 0 and (len(sell_order_prices) == 0 or current_price < (sum(sell_order_prices) / len(sell_order_prices))):
 					self._logger.info("Buying {} contracts at ${}.".format(current_order_size, current_price))
