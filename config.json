@@ -2,8 +2,8 @@
 	"debug": false,
 	"test": true,
 
-	"key": "2nOCN8biRlcCElLHuaKmzSxf",
-	"secret": "d1TcV3XY4R5r0Fr_ZpWXReSzft4XvCJBumDdoNmW9b06xuBV",
+	"key": "",
+	"secret": "",
 	"symbol": "BTC/USD",
 	
 	"ichimoku_tenkan_sen_period": 9,
