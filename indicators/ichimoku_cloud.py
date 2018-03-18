@@ -42,7 +42,13 @@ def get(client, symbol, period_time, ichimoku_tenkan_sen_period, ichimoku_kijun_
     #Get Current Price
     price = client.fetch_ticker(symbol)["close"]
 
-    ichimoku_cloud_data = [tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span, old_price, price]
+    #Calculate Senkou Span A
+    future_senkou_span_a = (tenkan_sen + kijun_sen) / 2
+
+    #Calculate Senkou Span B
+    future_senkou_span_b = max(previous_high_prices[-ichimoku_senkou_span_b_period:])
+
+    ichimoku_cloud_data = [tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span, old_price, price, future_senkou_span_a, future_senkou_span_b]
 
     return(ichimoku_cloud_data)
 
@@ -111,12 +117,12 @@ def signal(previous_ichimoku_cloud: list):
         signals.append(current_signal)
 
     #Bull / Bear Check
-    if data[len(data) - 1][2] > data[len(data) - 1][3]:
+    if data[len(data) - 1][7] > data[len(data) - 1][8]:
         current_signal = []
         current_signal.append("Bull Cloud")
         current_signal.append("bullish")
         signals.append(current_signal)
-    elif data[len(data) - 1][2] < data[len(data) - 1][3]:
+    elif data[len(data) - 1][7] < data[len(data) - 1][8]:
         current_signal = []
         current_signal.append("Bear Cloud")
         current_signal.append("bearish")
