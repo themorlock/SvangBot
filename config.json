@@ -1,0 +1,20 @@
+{
+	"debug": false,
+	"test": true,
+
+	"key": "2nOCN8biRlcCElLHuaKmzSxf",
+	"secret": "d1TcV3XY4R5r0Fr_ZpWXReSzft4XvCJBumDdoNmW9b06xuBV",
+	"symbol": "BTC/USD",
+	
+	"ichimoku_tenkan_sen_period": 9,
+	"ichimoku_kijun_sen_period": 26,
+	"ichimoku_senkou_span_b_period": 52,
+	"ichimoku_senkou_span_lag_period": 26,
+	"ichimoku_chikou_span_period": 26,
+	"data_period": "1m",
+
+	"leverage": 25,
+	"n_multiplier": 1.25,
+
+	"seconds_per_cycle": 60
+}
