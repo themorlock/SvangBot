@@ -110,4 +110,16 @@ def signal(previous_ichimoku_cloud: list):
         current_signal.append("bearish")
         signals.append(current_signal)
 
+    #Bull / Bear Check
+    if data[len(data) - 1][2] > data[len(data) - 1][3]:
+        current_signal = []
+        current_signal.append("Bull Cloud")
+        current_signal.append("bullish")
+        signals.append(current_signal)
+    elif data[len(data) - 1][2] < data[len(data) - 1][3]:
+        current_signal = []
+        current_signal.append("Bear Cloud")
+        current_signal.append("bearish")
+        signals.append(current_signal)
+
     return signals

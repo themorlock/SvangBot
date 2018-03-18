@@ -90,7 +90,7 @@ class Bot:
 						bears += 1
 			
 				current_order_size = int(usd_free_balance * self._ichimoku_calculate_purchase_size(current_bulls + current_bears))
-				if current_bulls > 0 and (len(buy_order_prices) == 0 or current_price < (sum(sell_order_prices) / len(sell_order_prices))):
+				if current_bulls > 0 and (len(sell_order_prices) == 0 or current_price < (sum(sell_order_prices) / len(sell_order_prices))):
 					self._logger.info("Buying {} contracts at ${}.".format(current_order_size, current_price))
 					try:
 						#self._client.create_order(self._symbol, 'limit', amount=(current_order_size + sells), price=current_price)
@@ -105,7 +105,7 @@ class Bot:
 						buys += current_order_size
 					except Exception:
 						self._logger.info("Order Failed.")
-				elif current_bears > 0 and (len(sell_order_prices) == 0 or current_price > (sum(buy_order_prices) / len(buy_order_prices))):
+				elif current_bears > 0 and (len(buy_order_prices) == 0 or current_price > (sum(buy_order_prices) / len(buy_order_prices))):
 					self._logger.info("Selling {} contracts at ${}.".format(current_order_size, current_price))
 					try:
 						#self._client.create_order(self._symbol, 'limit', amount=-(current_order_size + sells), price=current_price)
